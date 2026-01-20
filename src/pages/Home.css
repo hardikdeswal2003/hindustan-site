@@ -1,0 +1,538 @@
+/* --------------------------------------------------
+   GLOBAL
+-------------------------------------------------- */
+.home {
+  width: 100%;
+  background: #f5f6ff;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+
+
+/* --------------------------------------------------
+   HERO SECTION
+-------------------------------------------------- */
+.hero {
+  text-align: center;
+  padding: 120px 20px;
+  color: white;
+
+  background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
+    url("../assets/images/showroom.png");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  color: #ff2b2b;
+  font-weight: 900;
+}
+
+.hero p {
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+.sinceBadge {
+  display: inline-block;
+  margin-top: 12px;
+  background: linear-gradient(145deg,#FFD700,#ffb300);
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 40px;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.heroBtn {
+  margin-left: 12px;
+  margin-top: 22px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  background: white;
+  color: #0b3d91;
+  font-weight: bold;
+  transition: .3s;
+}
+
+.heroBtn:hover {
+  background: #ffcc00;
+  transform: scale(1.05);
+}
+
+
+/* --------------------------------------------------
+   CAMPAIGN / EDUCATIONAL SECTIONS
+   (Inserted between hero and categories)
+-------------------------------------------------- */
+.campaignSection {
+  padding: 56px 0;
+}
+
+/* Shared lede */
+.campaignSection .lede {
+  font-size: 18px;
+  color: #394b6b;
+  margin-bottom: 18px;
+}
+
+/* Layout container */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* --- Water Split Section --- */
+.waterSection { background: linear-gradient(180deg,#f8fbff,#ffffff); }
+.waterSection .split { display: flex; align-items: center; gap: 28px; }
+.waterSection .text { flex: 1; padding: 20px 10px; text-align: left; }
+.waterSection h2 { font-size: 32px; color: #072b6b; margin-bottom: 8px; }
+.waterSection .points { list-style: none; padding: 0; margin: 12px 0 20px; color: #55677f; }
+.waterSection .points li { margin: 10px 0; padding-left: 8px; line-height:1.5; }
+.waterSection .media { width: 48%; min-height: 240px; border-radius: 14px; overflow: hidden; }
+.waterSection .mediaImage {
+  width: 100%; height: 100%;
+  /* royalty-free placeholder: child drinking water */
+  background-image: url('https://source.unsplash.com/featured/?child,drinking,water');
+  background-size: cover; background-position: center; position: relative;
+}
+.waterSection .mediaImage::after {
+  content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2,6,23,0.35), rgba(2,6,23,0.15));
+}
+.waterSection .cta.small { display: inline-block; margin-top: 8px; padding: 10px 16px; background: #0b3d91; color: white; border-radius: 8px; text-decoration: none; font-weight:600; }
+
+/* subtle fade-in */
+.waterSection, .airSection, .solarSection { opacity: 0; transform: translateY(8px); animation: fadeUp .7s ease forwards; }
+@keyframes fadeUp { to { opacity: 1; transform: none; } }
+
+/* Triple layout for campaign with images on both sides */
+.split.triple {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.sideImage {
+  width: 100%;
+  height: 380px;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+  transition: transform .36s cubic-bezier(.2,.9,.2,1), box-shadow .36s ease, filter .36s ease;
+}
+
+.sideImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* make the right image more prominent and classy */
+.sideImage.right {
+  height: 440px; /* slightly taller */
+  margin-left: 6px;
+  box-shadow: 0 36px 80px rgba(2,10,38,0.16);
+  border-radius: 26px;
+  transform: translateY(-6px);
+  border: 6px solid rgba(255,255,255,0.9);
+}
+
+.sideImage.left { filter: saturate(.96) contrast(.98); }
+
+.sideImage.right img {
+  transform-origin: center center;
+  transition: transform .6s cubic-bezier(.2,.9,.2,1);
+}
+
+.sideImage.right:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 48px 110px rgba(2,10,38,0.22);
+}
+
+.sideImage.right:hover img { transform: scale(1.04); }
+
+/* --- Air Emotional Section --- */
+.airSection { margin: 30px 0 0; padding: 80px 0; color: white; position: relative; }
+.airSection::before {
+  content: ''; position: absolute; inset: 0;
+  /* royalty-free placeholder: indoor air pollution / child */
+  background-image: url('https://source.unsplash.com/featured/?indoor,air-pollution,child');
+  background-size: cover; background-position: center; z-index:0; filter: contrast(0.9) saturate(0.85);
+}
+.airSection::after { content: ''; position: absolute; inset:0; background: linear-gradient(180deg, rgba(2,10,35,0.65), rgba(2,10,35,0.7)); z-index:1; }
+.airSection .airContent { position: relative; z-index:2; max-width: 900px; margin: 0 auto; text-align: center; padding: 0 20px; }
+.airSection h2 { font-size: 36px; margin-bottom: 10px; font-weight:700; }
+.airSection .lede { color: rgba(255,255,255,0.92); }
+.airSection .cta.light { display:inline-block; margin-top:18px; padding: 12px 22px; background: rgba(255,255,255,0.12); color: white; border-radius: 999px; border: 1px solid rgba(255,255,255,0.18); text-decoration: none; font-weight:700; }
+.airSection .cta.light:hover { background: rgba(255,255,255,0.18); transform: translateY(-3px); }
+
+/* --- Solar Section --- */
+.solarSection { background: linear-gradient(180deg,#ffffff,#f7fbf6); padding-top: 46px; }
+.solarSection::before {
+  content: ''; position: absolute; inset: 0; z-index:0; pointer-events: none;
+  /* royalty-free placeholder: solar panels on rooftop */
+  background-image: url('https://source.unsplash.com/featured/?solar,panels,rooftop');
+  background-size: cover; background-position: center; opacity: 0.08; transform: scale(1.02);
+}
+.solarHeader { text-align: center; margin-bottom: 22px; }
+.solarHeader h2 { font-size: 30px; color: #05324a; }
+.solarHeader .lede { color: #385b4f; }
+.features { display:flex; gap:18px; justify-content:center; margin: 18px 0 10px; }
+.featureCard { background: white; padding: 20px; border-radius: 12px; width: 280px; box-shadow: 0 12px 30px rgba(9,50,36,0.06); border: 1px solid rgba(9,50,36,0.04); text-align:left; }
+.featureCard h4 { margin: 0 0 8px; color: #0b3d91; }
+.solarCta { text-align: center; margin-top: 20px; }
+.solarCta .highlight { font-weight:600; color:#214b3a; margin-bottom: 12px; }
+.cta.primary { display:inline-block; padding: 12px 22px; background: linear-gradient(90deg,#0b3d91,#0b63d6); color: white; border-radius: 10px; text-decoration:none; font-weight:700; }
+
+/* responsive for campaign sections */
+@media (max-width: 900px) {
+  .waterSection .split { flex-direction: column-reverse; }
+  .waterSection .media { width: 100%; height: 220px; }
+  .features { flex-direction: column; align-items: center; }
+}
+
+/* --------------------------------------------------
+   KITCHEN DESIGN SECTION (premium)
+-------------------------------------------------- */
+.kitchenSection {
+  position: relative;
+  padding: 80px 0;
+ /*background-image: url("/campaign/luxury-kitchen.jpeg");*/
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+.kitchenOverlay {
+  position: absolute; inset: 0; z-index: 1;
+  /* stronger overlay for premium drama */
+  background: linear-gradient(180deg, rgba(2,10,25,0.78), rgba(2,10,25,0.64));
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.kitchenInner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.kitchenLeft { padding: 20px 10px; }
+.kitchenLeft h2 { font-size: 36px; margin-bottom: 12px; color: #fff; letter-spacing: -0.4px; }
+.kitchenLeft .lede { color: rgba(255,255,255,0.92); font-size: 17px; margin-bottom: 18px; max-width: 560px; }
+.kitchenList { display: flex; flex-wrap: wrap; gap: 10px 12px; margin: 16px 0 22px; list-style: none; padding: 0; }
+.kitchenList li { background: rgba(255,255,255,0.08); color: #fff; padding: 8px 12px; border-radius: 999px; font-weight:600; font-size:14px; backdrop-filter: blur(2px); }
+.kitchenCta { display:inline-block; padding: 12px 20px; background: linear-gradient(90deg,#ffd166,#ff7a18); color: #072b6b; border-radius: 12px; font-weight:800; text-decoration:none; box-shadow: 0 12px 38px rgba(255,122,24,0.18); }
+.kitchenCta:hover { transform: translateY(-4px); }
+
+.kitchenRight { display:flex; justify-content:center; align-items:center; }
+.kitchenCards { display:grid; grid-template-columns: repeat(2, minmax(140px, 1fr)); gap: 18px; width: 100%; max-width:420px; }
+.kitchenCard { background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); color: #fff; padding: 18px 12px; border-radius: 14px; text-align:center; font-weight:700; box-shadow: 0 12px 30px rgba(2,8,30,0.32); border: 1px solid rgba(255,255,255,0.06); transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s ease; }
+.kitchenCard:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 28px 80px rgba(2,8,30,0.45); }
+
+.kitchenIcon { display:inline-block; font-size:28px; width:44px; height:44px; line-height:44px; border-radius:10px; background: rgba(255,255,255,0.06); margin-right:8px; }
+.kitchenCard span { vertical-align: middle; }
+
+@media (max-width: 900px) {
+  .kitchenInner { grid-template-columns: 1fr; text-align: center; }
+  .kitchenRight { margin-top: 18px; }
+  .kitchenCards { margin: 0 auto; grid-template-columns: repeat(2, 1fr); }
+}
+
+
+
+
+
+/* --------------------------------------------------
+   CATEGORY SECTION (scoped to .categorySection)
+   Make images consistently centered and preserve the
+   premium card styles defined earlier. This block
+   intentionally uses the .categorySection namespace so
+   it won't unintentionally override other shared rules.
+-------------------------------------------------- */
+.categorySection .sectionTitle {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 26px;
+  color: #0b3d91;
+}
+
+/* GRID */
+.categorySection .cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 30px;
+  padding: 28px 8px 40px;
+  justify-items: center;
+}
+
+/* CARD CONTAINER */
+.categorySection .card {
+  background: white;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid rgba(20,40,60,0.04);
+  overflow: hidden;
+  transition: transform .28s ease, box-shadow .28s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+  max-width: 360px;
+}
+
+/* CARD IMAGE: keep a consistent height and center the crop */
+.categorySection .card img {
+  width: 100%;
+  height: 220px; /* consistent vertical crop */
+  object-fit: cover;
+  object-position: center center; /* center the focal point */
+  border-bottom: 1px solid #eee;
+  display: block;
+  transition: transform .6s cubic-bezier(.2,.9,.2,1);
+}
+
+/* CARD TEXT */
+.categorySection .card h3 {
+  margin: 12px 0 6px;
+  font-size: 18px;
+  color: #072b6b;
+  font-weight: 700;
+}
+
+.categorySection .card p {
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: #6b7a94;
+}
+
+/* HOVER EFFECT */
+.categorySection .card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(10,30,60,0.08);
+  border-color: rgba(11,61,145,0.08);
+}
+
+.categorySection .card:hover img { transform: scale(1.05); }
+
+
+
+/* --------------------------------------------------
+   ABOUT SECTION
+-------------------------------------------------- */
+.aboutShowcase {
+  padding: 64px 0 28px;
+  background: linear-gradient(180deg,#fbfcff,#f6f9ff);
+}
+.aboutShowcase .aboutHead { text-align: center; max-width: 900px; margin: 0 auto 22px; }
+.aboutShowcase h2 { font-size: 34px; color: #062b57; margin-bottom: 6px; }
+.aboutShowcase .aboutIntro { font-size: 16px; color: #274162; margin-bottom: 22px; font-weight:600; }
+
+.aboutGrid { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; max-width:1100px; margin: 0 auto 20px; padding: 0 16px; }
+.aboutCard { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 14px 40px rgba(10,40,100,0.06); border: 1px solid rgba(10,40,100,0.04); text-align: left; }
+.aboutCard h4 { margin: 10px 0 8px; color: #0b3d91; font-size: 18px; }
+.aboutCard p { margin: 0; color: #475b76; line-height: 1.45; font-size: 14px; }
+.aboutCard .iconWrap { width:56px; height:56px; border-radius:12px; display:flex; align-items:center; justify-content:center; background: linear-gradient(180deg,#eaf3ff,#ffffff); color:#0b3d91; font-size:22px; box-shadow: 0 6px 18px rgba(11,61,145,0.08); }
+
+.brandStrip { display:flex; gap:18px; justify-content:center; align-items:center; flex-wrap:wrap; max-width:1000px; margin: 18px auto; padding: 12px 20px; }
+.brandStrip img { width:92px; height:auto; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.06)); transition: transform .25s; }
+.brandStrip img:hover { transform: translateY(-6px); }
+
+.aboutFooter { text-align:center; margin-top: 12px; display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap; }
+.visitShowroom { display:inline-block; padding:10px 18px; color:#0b3d91; background: transparent; border-radius:8px; text-decoration:none; border:1px solid rgba(11,61,145,0.08); font-weight:700; }
+
+/* reuse .cta.primary from solar section but ensure spacing */
+.aboutShowcase .cta.primary { padding: 12px 22px; }
+
+@media (max-width: 900px) {
+  .aboutGrid { grid-template-columns: repeat(2,1fr); }
+}
+
+@media (max-width: 560px) {
+  .aboutGrid { grid-template-columns: 1fr; }
+  .aboutShowcase h2 { font-size: 26px; }
+  .brandStrip img { width:72px; }
+}
+
+/* About contact box (showrooms & quick links) */
+.aboutContactBox {
+  margin-top: 50px;
+  padding: 35px;
+  background: linear-gradient(135deg, #f8fbff, #eef4ff);
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.aboutContactBox h3 {
+  margin-bottom: 18px;
+  font-size: 26px;
+  color: #0d47a1;
+}
+
+.aboutContactBox p {
+  font-size: 16px;
+  margin: 6px 0;
+  color: #333;
+}
+
+.contactLinks {
+  margin-top: 22px;
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mapBtn, .instaBtn {
+  padding: 12px 22px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.mapBtn {
+  background: #0d6efd;
+  color: white;
+}
+
+.mapBtn:hover {
+  background: #084298;
+  transform: translateY(-2px);
+}
+
+.instaBtn {
+  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
+  color: white;
+}
+
+.instaBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+
+
+/* Buttons */
+.instaBtn, .mapBtn {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 18px;
+  background: #0b3d91;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.instaBtn:hover,
+.mapBtn:hover {
+  background: #00235a;
+}
+
+
+
+/* Brand Logos */
+.brandLogos {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.brandLogos img {
+  width: 90px;
+  height: auto;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+  transition: transform .3s;
+}
+
+.brandLogos img:hover {
+  transform: scale(1.1);
+}
+
+
+
+/* Social Icons */
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.icon {
+  font-size: 45px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.insta { color: #E4405F; }
+.map { color: #0b3d91; }
+
+.icon:hover { transform: scale(1.15); }
+
+
+
+/* --------------------------------------------------
+   CTA FOOTER
+-------------------------------------------------- */
+.ctaFooter {
+  margin-top: 50px;
+  padding: 45px;
+  text-align: center;
+  background: linear-gradient(180deg,#0b3d91,#001a49);
+  color: white;
+}
+
+.ctaFooter h2 { font-size: 28px; }
+.ctaFooter p { font-size: 18px; opacity: .9; }
+
+.callBtn {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 12px 26px;
+  background: #00d12e;
+  color: white;
+  font-size: 18px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  transition: .3s;
+}
+
+.callBtn:hover {
+  background: #02b129;
+  transform: scale(1.08);
+}
+
+
+
+/* --------------------------------------------------
+   RESPONSIVE
+-------------------------------------------------- */
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: repeat(1,1fr);
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .ctaFooter h2 {
+    font-size: 22px;
+  }
+}
