@@ -37,16 +37,11 @@ function normalizeCategory(input) {
   return map[key] || input;
 }
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
-function Products() {
+export default function Products() {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const location = useLocation();
   const navigate = useNavigate();
-  const query = useQuery();
 
   useEffect(() => {
     fetch("http://localhost:5000/products")
@@ -55,10 +50,12 @@ function Products() {
       .catch((err) => console.log(err));
   }, []);
 
-  // sync category from URL
+  // sync category from URL whenever location.search changes
   useEffect(() => {
+    const query = new URLSearchParams(location.search);
     const q = query.get("category");
     if (q) setSelectedCategory(normalizeCategory(decodeURIComponent(q)));
+    else setSelectedCategory("All");
   }, [location.search]);
 
   const filteredProducts =
@@ -106,7 +103,7 @@ function Products() {
         {filteredProducts.map((p) => (
           <div
             key={p._id}
-            onClick={() => (window.location.href = `/product/${p._id}`)}
+            onClick={() => navigate(`/product/${p._id}`)}
             style={{
               border: "1px solid #ddd",
               borderRadius: "10px",
@@ -153,5 +150,3 @@ function Products() {
     </div>
   );
 }
-
-export default Products;

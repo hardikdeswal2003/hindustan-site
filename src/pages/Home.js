@@ -1,5 +1,6 @@
 import React from "react";
 import "./Home.css";
+import { Link } from "react-router-dom";
 import { FaHistory, FaAward, FaTools, FaHandsHelping } from "react-icons/fa";
 
 export default function Home() {
@@ -15,7 +16,7 @@ export default function Home() {
           <span className="sinceBadge">Serving Panipat Since 2003</span>
 
           <div className="heroButtons">
-            <a href="/products" className="cta primary">Explore Products</a>
+            <Link to="/products" className="cta primary">Explore Products</Link>
             <a 
               href="https://www.instagram.com/_hindustanenterprises"
               target="_blank"
@@ -46,9 +47,9 @@ export default function Home() {
               <li>RO purification removes harmful impurities</li>
             </ul>
 
-            <a href="/products?category=Water%20Purifier" className="cta small">
+            <Link to="/products?category=Water%20Purifier" className="cta small">
               Shop Water Purifiers
-            </a>
+            </Link>
           </div>
 
           <div className="sideImage">
@@ -63,9 +64,9 @@ export default function Home() {
         <div className="airContent">
           <h2>The Air Your Child Breathes Matters</h2>
           <p>Indoor pollution increases asthma and allergies. Protect your family.</p>
-          <a href="/products?category=Air%20Purifier" className="cta light">
+          <Link to="/products?category=Air%20Purifier" className="cta light">
             Explore Air Purifiers
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -75,7 +76,7 @@ export default function Home() {
           <h2>Go Green with Solar Energy</h2>
           <p>Save electricity. Reduce bills. Build a cleaner future.</p>
 
-          <a href="/solar" className="cta primary">Explore Solar Solutions</a>
+          <Link to="/solar" className="cta primary">Explore Solar Solutions</Link>
         </div>
       </section>
 
@@ -85,25 +86,25 @@ export default function Home() {
 
         <div className="cards">
 
-          <a className="card" href="/products?category=Water%20Purifier">
+          <Link className="card" to="/products?category=Water%20Purifier">
             <img src="/category/ro.png" alt="Water Purifier" />
             <h3>Water Purifiers</h3>
-          </a>
+          </Link>
 
-          <a className="card" href="/products?category=Air%20Purifier">
+          <Link className="card" to="/products?category=Air%20Purifier">
             <img src="/category/airpurifier.png" alt="Air Purifier" />
             <h3>Air Purifiers</h3>
-          </a>
+          </Link>
 
-          <a className="card" href="/products?category=Kitchen%20Appliances">
+          <Link className="card" to="/products?category=Kitchen%20Appliances">
             <img src="/category/kitchen.png" alt="Kitchen" />
             <h3>Kitchen Appliances</h3>
-          </a>
+          </Link>
 
-          <a className="card" href="/solar">
+          <Link className="card" to="/solar">
             <img src="/category/solar.png" alt="Solar" />
             <h3>Solar Solutions</h3>
-          </a>
+          </Link>
 
         </div>
       </section>
