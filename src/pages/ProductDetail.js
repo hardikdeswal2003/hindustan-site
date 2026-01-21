@@ -7,7 +7,7 @@ function ProductDetail() {
   const [activeImage, setActiveImage] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/products/${id}`)
+    fetch(`https://hindustan-site.onrender.com/products/${id}`)
       .then(res => res.json())
       .then(data => setProduct(data))
       .catch(err => console.log(err));

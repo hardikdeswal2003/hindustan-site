@@ -44,7 +44,7 @@ export default function Products() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("https://hindustan-site.onrender.com/products")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.log(err));

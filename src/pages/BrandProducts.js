@@ -7,7 +7,7 @@ function BrandProducts() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("https://hindustan-site.onrender.com/products")
       .then(res => res.json())
       .then(data => {
         const filtered = data.filter(p =>
