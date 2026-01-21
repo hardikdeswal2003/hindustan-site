@@ -10,7 +10,7 @@ function ProductDetail() {
     fetch(`https://hindustan-site.onrender.com/products/${id}`)
       .then(res => res.json())
       .then(data => setProduct(data))
-      .catch(err => console.log("Fetch error:", err));
+      .catch(err => console.log("FETCH ERROR:", err));
   }, [id]);
 
   if (!product) return <h2 style={{ padding: "40px" }}>Loading...</h2>;
@@ -22,7 +22,6 @@ function ProductDetail() {
       <p><b>Brand:</b> {product.brand}</p>
       <p><b>Category:</b> {product.category}</p>
 
-      {/* ✅ IMAGES */}
       <div style={{ display: "flex", gap: "15px", flexWrap: "wrap", marginTop: "20px" }}>
         {product.images?.map((img, i) => (
           <img 
@@ -41,10 +40,8 @@ function ProductDetail() {
         ))}
       </div>
 
-      {/* ✅ DESCRIPTION */}
       <div style={{ marginTop: "30px" }}>
         <h3>Description</h3>
-
         <ul style={{ lineHeight: "1.9", fontSize: "16px" }}>
           {(product.description || "")
             .split(".")
@@ -55,7 +52,6 @@ function ProductDetail() {
         </ul>
       </div>
 
-      {/* ✅ WHATSAPP */}
       <a 
         href={`https://wa.me/919254010887?text=Hello, I am interested in *${product.name}* (%0ACategory: ${product.category}%0ABrand: ${product.brand}). Please share best price and details.`}
         target="_blank"
@@ -75,7 +71,6 @@ function ProductDetail() {
         </button>
       </a>
 
-      {/* ✅ IMAGE POPUP */}
       {activeImage && (
         <div 
           onClick={() => setActiveImage(null)}
