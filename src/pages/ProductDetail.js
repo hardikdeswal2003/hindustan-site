@@ -6,20 +6,13 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [activeImage, setActiveImage] = useState(null);
 
-/*  useEffect(() => {/*
+  useEffect(() => {
     fetch(`https://hindustan-site.onrender.com/products/${id}`)
       .then(res => res.json())
       .then(data => setProduct(data))
-      .catch(err => console.log(err));
+      .catch(err => console.log("Fetch error:", err));
   }, [id]);
-*/
-useEffect(())=>{
-fetch(`https://hindustan-site.onrender.com/products/${id}`)
-      .then(res => res.json())
-      .then(data => setProduct(data))
-      .catch(err => console.log(err));
-  }, [id]);
-}
+
   if (!product) return <h2 style={{ padding: "40px" }}>Loading...</h2>;
 
   return (
@@ -48,7 +41,7 @@ fetch(`https://hindustan-site.onrender.com/products/${id}`)
         ))}
       </div>
 
-      {/* ✅ DESCRIPTION BULLETS */}
+      {/* ✅ DESCRIPTION */}
       <div style={{ marginTop: "30px" }}>
         <h3>Description</h3>
 
