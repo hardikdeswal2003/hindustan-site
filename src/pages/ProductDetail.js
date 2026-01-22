@@ -5,15 +5,35 @@ function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [activeImage, setActiveImage] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    setLoading(true);
+    setError(null);
     fetch(`https://hindustan-site.onrender.com/products/${id}`)
-      .then(res => res.json())
-      .then(data => setProduct(data))
-      .catch(err => console.log("FETCH ERROR:", err));
+      .then((res) => {
+        if (!res.ok) throw new Error(`Status ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        if (!data) {
+          setError("Product not found.");
+          setProduct(null);
+        } else {
+          setProduct(data);
+        }
+      })
+      .catch((err) => {
+        console.error("FETCH ERROR:", err);
+        setError("Failed to load product. Check backend or network (see console).");
+        setProduct(null);
+      })
+      .finally(() => setLoading(false));
   }, [id]);
 
-  if (!product) return <h2 style={{ padding: "40px" }}>Loading...</h2>;
+  if (loading) return <h2 style={{ padding: "40px" }}>Loading...</h2>;
+  if (error) return <h2 style={{ padding: "40px", color: "#b00" }}>{error}</h2>;
 
   return (
     <div style={{ padding: "40px", maxWidth: "1100px", margin: "auto" }}>
