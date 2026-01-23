@@ -59,3 +59,17 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🔥 Server running on port ${PORT}`);
 });
+// Get single product by ID
+app.get("/products/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.json(product);
+  } catch (error) {
+    res.status(400).json({ message: "Invalid product ID" });
+  }
+});
