@@ -7,7 +7,7 @@ function SearchResults() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://hindustan-site.onrender.com/products")
+    fetch("https://hindustan-site-2.onrender.com/products")
       .then(res => res.json())
       .then(data => {
         const q = query.toLowerCase();
