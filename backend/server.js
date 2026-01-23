@@ -4,28 +4,58 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
-// routes
-app.use("/admin", require("./routes/admin"));
-app.use("/products", require("./routes/products"));
+// ================= MongoDB Connection =================
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.log("❌ Mongo Error:", err));
 
+// ================= Product Schema =================
+const ProductSchema = new mongoose.Schema(
+  {
+    name: String,
+    brand: String,
+    category: String,
+    price: Number,     // better as Number for future filters & calculations
+    image: String
+  },
+  { timestamps: true }
+);
 
-// connect db (optional)
-if (process.env.MONGO_URI) {
-  mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB Connected"))
-    .catch((err) => console.log("MongoDB connection error:", err));
-} else {
-  console.warn("MONGO_URI not provided — backend will run without DB. Create a .env with MONGO_URI to enable DB features.");
-}
+const Product = mongoose.model("Product", ProductSchema);
 
+// ================= Routes =================
+
+// Test route
 app.get("/", (req, res) => {
-  res.send("Backend Running...");
+  res.send("🚀 Backend Running Successfully");
 });
 
+// Fetch all products
+app.get("/products", async (req, res) => {
+  try {
+    const data = await Product.find();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
+});
+
+// Add new product
+app.post("/add-product", async (req, res) => {
+  try {
+    const result = await Product.create(req.body);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add product" });
+  }
+});
+
+// ================= Start Server =================
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🔥 Server running on port ${PORT}`);
+});
