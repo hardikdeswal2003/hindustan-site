@@ -39,12 +39,3 @@ router.get("/:id", async (req, res) => {
   }
 });
 module.exports = router;
-// ✅ GET SINGLE PRODUCT BY ID
-router.get("/:id", async (req, res) => {
-  try {
-    const product = await Product.findById(req.params.id);
-    res.json(product);
-  } catch (err) {
-    res.status(500).json({ message: "Product not found" });
-  }
-});
