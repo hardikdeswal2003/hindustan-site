@@ -11,7 +11,8 @@ function ProductDetail() {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    fetch(`https://hindustan-site.onrender.com/products/${id}`)
+    fetch(`https://hindustan-site-2.onrender.com/products/${id}`)
+
       .then((res) => {
         if (!res.ok) throw new Error(`Status ${res.status}`);
         return res.json();
