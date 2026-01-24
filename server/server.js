@@ -38,18 +38,15 @@ const Admin = mongoose.model("Admin", AdminSchema);
 
 // ================= Routes =================
 
-// Test route
 app.get("/", (req, res) => {
   res.send("Backend Running");
 });
 
-// Fetch products
 app.get("/products", async (req, res) => {
   const data = await Product.find();
   res.json(data);
 });
 
-// Get single product
 app.get("/products/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -59,7 +56,6 @@ app.get("/products/:id", async (req, res) => {
   }
 });
 
-// Add product (admin later)
 app.post("/add-product", async (req, res) => {
   const result = await Product.create(req.body);
   res.json(result);
@@ -83,7 +79,6 @@ app.post("/admin/login", async (req, res) => {
     );
 
     res.json({ token });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
