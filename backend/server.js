@@ -1,3 +1,7 @@
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const Admin = require("./models/Admin");
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -51,6 +55,50 @@ app.post("/add-product", async (req, res) => {
     res.json(result);
   } catch (err) {
     res.status(500).json({ error: "Failed to add product" });
+  }
+});
+// TEST
+app.get("/", (req, res) => {
+  res.send("Backend Running...");
+});
+
+// GET ALL PRODUCTS
+app.get("/products", async (req, res) => {
+  ...
+});
+
+// GET PRODUCT BY ID
+app.get("/products/:id", async (req, res) => {
+  ...
+});
+
+// ADD PRODUCT
+app.post("/add-product", async (req, res) => {
+  ...
+});
+
+// 👉 ADD THIS BELOW (order doesn’t matter among routes)
+
+app.post("/admin/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const admin = await Admin.findOne({ email });
+    if (!admin) return res.status(401).json({ message: "Invalid email" });
+
+    const isMatch = await bcrypt.compare(password, admin.password);
+    if (!isMatch) return res.status(401).json({ message: "Invalid password" });
+
+    const token = jwt.sign(
+      { id: admin._id, email: admin.email },
+      process.env.JWT_SECRET || "hindustan_secret",
+      { expiresIn: "7d" }
+    );
+
+    res.json({ token });
+
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
   }
 });
 

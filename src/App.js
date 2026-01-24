@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import AdminLogin from "./pages/AdminLogin";
+
 // Use the cleaned Home component while Home.js is being repaired
 import Home from "./pages/HomeClean";
 import Products from "./pages/Products";
@@ -16,6 +18,7 @@ function App() {
       <Navbar />
 
       <Routes>
+        {/* PUBLIC ROUTES */}
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/about" element={<About />} />
@@ -23,7 +26,10 @@ function App() {
         <Route path="/search/:query" element={<SearchResults />} />
         <Route path="/brands" element={<Brands />} />
         <Route path="/brands/:brandName" element={<BrandProducts />} />
-  <Route path="/solar" element={<Solar />} />
+        <Route path="/solar" element={<Solar />} />
+
+        {/* ADMIN ROUTE */}
+        <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>
     </Router>
   );
