@@ -21,9 +21,9 @@ const ProductSchema = new mongoose.Schema({
   brand: String,
   category: String,
   price: String,
+  image: String,
   images: [String],
-  description: String,
-  inStock: Boolean
+  description: String
 });
 
 const Product = mongoose.model("Product", ProductSchema);
@@ -40,41 +40,32 @@ const Admin = mongoose.model("Admin", AdminSchema);
 
 // Test route
 app.get("/", (req, res) => {
-  res.send("Backend Running...");
+  res.send("Backend Running");
 });
 
-// Fetch all products
+// Fetch products
 app.get("/products", async (req, res) => {
-  try {
-    const data = await Product.find();
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ message: "Server error" });
-  }
+  const data = await Product.find();
+  res.json(data);
 });
 
-// Fetch single product
+// Get single product
 app.get("/products/:id", async (req, res) => {
   try {
-    const data = await Product.findById(req.params.id);
-    res.json(data);
+    const product = await Product.findById(req.params.id);
+    res.json(product);
   } catch (err) {
     res.status(404).json({ message: "Product not found" });
   }
 });
 
-// Add product
+// Add product (admin later)
 app.post("/add-product", async (req, res) => {
-  try {
-    const result = await Product.create(req.body);
-    res.json(result);
-  } catch (err) {
-    res.status(500).json({ message: "Failed to add product" });
-  }
+  const result = await Product.create(req.body);
+  res.json(result);
 });
 
 // ================= ADMIN LOGIN =================
-
 app.post("/admin/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -94,7 +85,7 @@ app.post("/admin/login", async (req, res) => {
     res.json({ token });
 
   } catch (err) {
-    console.error("Admin login error:", err);
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });
