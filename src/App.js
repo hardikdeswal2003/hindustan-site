@@ -8,7 +8,6 @@ import AdminProducts from "./pages/admin/Products";
 import AddProduct from "./pages/admin/AddProduct";
 import EditProduct from "./pages/admin/EditProduct";
 
-// Public pages
 import Home from "./pages/HomeClean";
 import Products from "./pages/Products";
 import About from "./pages/About";
@@ -24,11 +23,10 @@ function AppWrapper() {
 
   return (
     <>
-      {/* Show website Navbar only on NON-admin pages */}
       {!isAdminRoute && <Navbar />}
 
       <Routes>
-        {/* PUBLIC ROUTES */}
+        {/* Public */}
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/about" element={<About />} />
@@ -38,27 +36,28 @@ function AppWrapper() {
         <Route path="/brands/:brandName" element={<BrandProducts />} />
         <Route path="/solar" element={<Solar />} />
 
-        {/* ADMIN LOGIN */}
+        {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
 
-<Route path="/admin" element={
-  <ProtectedAdminRoute>
-    <AdminLayout />
-  </ProtectedAdminRoute>
-}>
-  <Route path="dashboard" element={<Dashboard />} />
-  <Route path="products" element={<AdminProducts />} />
-  <Route path="add-product" element={<AddProduct />} />
-  <Route path="edit-product/:id" element={<EditProduct />} />
-</Route>
+        <Route path="/admin" element={
+          <ProtectedAdminRoute>
+            <AdminLayout />
+          </ProtectedAdminRoute>
+        }>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="add-product" element={<AddProduct />} />
+          <Route path="edit-product/:id" element={<EditProduct />} />
+        </Route>
+      </Routes>
+    </>
+  );
+}
 
-
-function App() {
+export default function App() {
   return (
     <Router>
       <AppWrapper />
     </Router>
   );
 }
-
-export default App;
