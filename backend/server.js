@@ -141,12 +141,20 @@ app.put("/admin/products/:id", async (req, res) => {
 // ✅ DELETE PRODUCT
 app.delete("/admin/products/:id", async (req, res) => {
   try {
-    await Product.findByIdAndDelete(req.params.id);
+    const deleted = await Product.findByIdAndDelete(req.params.id);
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
     res.json({ message: "Product deleted successfully" });
+
   } catch (err) {
-    res.status(500).json({ message: "Delete failed" });
+    console.error("DELETE ERROR:", err.message);
+    res.status(500).json({ message: err.message });
   }
 });
+
 
 // ================= ADMIN LOGIN =================
 app.post("/admin/login", async (req, res) => {
