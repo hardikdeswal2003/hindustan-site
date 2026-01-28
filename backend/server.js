@@ -96,6 +96,7 @@ app.delete("/admin/products/:id", async (req, res) => {
   }
 });
 // ================= PRODUCT ROUTES =================
+// ================= PRODUCTS =================
 
 // Get all products
 app.get("/products", async (req, res) => {
@@ -109,22 +110,22 @@ app.get("/products/:id", async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: "Product not found" });
     res.json(product);
-  } catch {
+  } catch (err) {
     res.status(400).json({ message: "Invalid product id" });
   }
 });
 
-// ✅ ADD PRODUCT
+// Add product
 app.post("/admin/products", async (req, res) => {
   try {
-    const product = await Product.create(req.body);
-    res.json(product);
+    const result = await Product.create(req.body);
+    res.json(result);
   } catch (err) {
-    res.status(500).json({ message: "Add product failed" });
+    res.status(500).json({ message: "Failed to add product" });
   }
 });
 
-// ✅ UPDATE PRODUCT (EDIT)
+// ✅ EDIT product
 app.put("/admin/products/:id", async (req, res) => {
   try {
     const updated = await Product.findByIdAndUpdate(
@@ -138,22 +139,16 @@ app.put("/admin/products/:id", async (req, res) => {
   }
 });
 
-// ✅ DELETE PRODUCT
+// ✅ DELETE product
 app.delete("/admin/products/:id", async (req, res) => {
   try {
-    const deleted = await Product.findByIdAndDelete(req.params.id);
-
-    if (!deleted) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
+    await Product.findByIdAndDelete(req.params.id);
     res.json({ message: "Product deleted successfully" });
-
   } catch (err) {
-    console.error("DELETE ERROR:", err.message);
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: "Delete failed" });
   }
 });
+
 
 
 // ================= ADMIN LOGIN =================
