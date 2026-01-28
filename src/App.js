@@ -41,24 +41,17 @@ function AppWrapper() {
         {/* ADMIN LOGIN */}
         <Route path="/admin/login" element={<AdminLogin />} />
 
-        {/* ADMIN PROTECTED ROUTES */}
-        <Route
-          path="/admin"
-          element={
-            <ProtectedAdminRoute>
-              <AdminLayout />
-            </ProtectedAdminRoute>
-          }
-        >
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="products" element={<AdminProducts />} />
-          <Route path="add-product" element={<AddProduct />} />
-          <Route path="edit-product/:id" element={<EditProduct />} />
-        </Route>
-      </Routes>
-    </>
-  );
-}
+<Route path="/admin" element={
+  <ProtectedAdminRoute>
+    <AdminLayout />
+  </ProtectedAdminRoute>
+}>
+  <Route path="dashboard" element={<Dashboard />} />
+  <Route path="products" element={<AdminProducts />} />
+  <Route path="add-product" element={<AddProduct />} />
+  <Route path="edit-product/:id" element={<EditProduct />} />
+</Route>
+
 
 function App() {
   return (
