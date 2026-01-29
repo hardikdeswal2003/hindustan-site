@@ -1,24 +1,49 @@
-export default function Dashboard() {
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
+import "../../components/admin/admin.css";
+
+export default function AdminLayout() {
+  const navigate = useNavigate();
+
+  function logout() {
+    localStorage.removeItem("adminToken");
+    navigate("/admin/login");
+  }
+
   return (
-    <>
-      <h1>Dashboard</h1>
+    <div className="admin-container">
 
-      <div className="stats-grid">
-        <div className="stat-box">
-          <h2>Products</h2>
-          <p>Manage all products</p>
+      {/* SIDEBAR */}
+      <aside className="admin-sidebar">
+        <div>
+          <div className="brand">Hindustan</div>
+          <div className="subtitle">Admin Panel</div>
+
+          <nav className="admin-nav">
+            <NavLink to="/admin/dashboard">Dashboard</NavLink>
+            <NavLink to="/admin/products">Products</NavLink>
+            <NavLink to="/admin/add-product">Add Product</NavLink>
+          </nav>
         </div>
 
-        <div className="stat-box">
-          <h2>Brands</h2>
-          <p>View by brand</p>
+        <button className="logout-btn" onClick={logout}>
+          Logout
+        </button>
+      </aside>
+
+      {/* MAIN AREA */}
+      <main className="admin-main">
+
+        <div className="admin-topbar">
+          <b>Admin Panel</b>
+          <span>Hindustan Enterprises</span>
         </div>
 
-        <div className="stat-box">
-          <h2>Website</h2>
-          <p>Hindustan Enterprises</p>
+        <div className="admin-content">
+          <Outlet />
         </div>
-      </div>
-    </>
+
+      </main>
+
+    </div>
   );
 }

@@ -1,25 +1,48 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function AdminProducts() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const API_BASE = "https://hindustan-site-2.onrender.com";
 
   async function fetchProducts() {
-    const res = await fetch("https://hindustan-site-2.onrender.com/products");
-    const data = await res.json();
-    setProducts(data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await fetch(`${API_BASE}/products`);
+      if (!res.ok) throw new Error("Failed to fetch products");
+      const data = await res.json();
+      setProducts(data);
+    } catch (err) {
+      console.error("Error fetching products:", err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function deleteProduct(id) {
-    if (!window.confirm("Delete this product?")) return;
+    if (!window.confirm("Are you sure you want to delete this product?")) return;
 
-    await fetch(`https://hindustan-site-2.onrender.com/products/${id}`, {
-      method: "DELETE"
-    });
+    try {
+      const res = await fetch(`https://hindustan-site-2.onrender.com/products/${id}`, {
+        method: "DELETE"
+      });
 
-    fetchProducts();
+      const data = await res.json();
+
+      alert(data.message);
+
+      setProducts(prev => prev.filter(p => p._id !== id));
+
+    } catch (err) {
+      alert("Delete failed");
+      console.error(err);
+    }
   }
 
   useEffect(() => {
@@ -27,38 +50,104 @@ function AdminProducts() {
   }, []);
 
   if (loading) return <h2>Loading products...</h2>;
+  if (error) return <h2 style={{ color: "red" }}>Error: {error}</h2>;
 
   return (
-    <div>
-      <h1>Products</h1>
+    <div style={containerStyle}>
+      <h1>Manage Products</h1>
 
-      <table border="1" cellPadding="10" width="100%">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Brand</th>
-            <th>Price</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {products.map((p) => (
-            <tr key={p._id}>
-              <td>{p.name}</td>
-              <td>{p.brand}</td>
-              <td>{p.price}</td>
-              <td>
-                <Link to={`/admin/edit-product/${p._id}`}>Edit</Link>
-                {" | "}
-                <button onClick={() => deleteProduct(p._id)}>Delete</button>
-              </td>
+      {products.length === 0 ? (
+        <p>No products found.</p>
+      ) : (
+        <table style={tableStyle}>
+          <thead>
+            <tr style={headerStyle}>
+              <th style={cellStyle}>Name</th>
+              <th style={cellStyle}>Brand</th>
+              <th style={cellStyle}>Category</th>
+              <th style={cellStyle}>Price</th>
+              <th style={cellStyle}>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {products.map((p) => (
+              <tr key={p._id} style={rowStyle}>
+                <td style={cellStyle}>{p.name}</td>
+                <td style={cellStyle}>{p.brand}</td>
+                <td style={cellStyle}>{p.category}</td>
+                <td style={cellStyle}>${p.price}</td>
+                <td style={cellStyle}>
+                  <Link
+                    to={`/admin/edit-product/${p._id}`}
+                    style={linkStyle}
+                  >
+                    Edit
+                  </Link>
+                  {" | "}
+                  <button
+                    onClick={() => deleteProduct(p._id)}
+                    style={buttonStyle}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
+
+const containerStyle = {
+  padding: "20px",
+  background: "white",
+  borderRadius: "10px"
+};
+
+const tableStyle = {
+  width: "100%",
+  borderCollapse: "collapse",
+  marginTop: "20px"
+};
+
+const headerStyle = {
+  background: "#0b3d91",
+  color: "white"
+};
+
+const cellStyle = {
+  padding: "12px",
+  border: "1px solid #ddd",
+  textAlign: "left"
+};
+
+const rowStyle = {
+  borderBottom: "1px solid #ddd"
+};
+
+const rowStyle_hover = {
+  background: "#f5f5f5"
+};
+
+const linkStyle = {
+  color: "#0b3d91",
+  textDecoration: "none",
+  fontWeight: "bold",
+  cursor: "pointer"
+};
+
+const buttonStyle = {
+  background: "#ff4d4d",
+  color: "white",
+  border: "none",
+  padding: "8px 12px",
+  borderRadius: "5px",
+  cursor: "pointer",
+  fontWeight: "bold",
+  marginLeft: "8px"
+};
 
 export default AdminProducts;

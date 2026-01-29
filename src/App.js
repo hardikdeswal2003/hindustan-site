@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import AdminLogin from "./pages/AdminLogin";
 import ProtectedAdminRoute from "./components/admin/ProtectedAdminRoute";
@@ -26,7 +26,7 @@ function AppWrapper() {
       {!isAdminRoute && <Navbar />}
 
       <Routes>
-        {/* Public */}
+        {/* PUBLIC */}
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/about" element={<About />} />
@@ -36,19 +36,22 @@ function AppWrapper() {
         <Route path="/brands/:brandName" element={<BrandProducts />} />
         <Route path="/solar" element={<Solar />} />
 
-        {/* Admin */}
+        {/* ADMIN LOGIN */}
         <Route path="/admin/login" element={<AdminLogin />} />
 
-        <Route path="/admin" element={
-          <ProtectedAdminRoute>
-            <AdminLayout />
-          </ProtectedAdminRoute>
-        }>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="products" element={<AdminProducts />} />
-          <Route path="add-product" element={<AddProduct />} />
-          <Route path="edit-product/:id" element={<EditProduct />} />
+        {/* BLOCK DIRECT /admin */}
+        <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
+
+        {/* PROTECTED ADMIN */}
+        <Route element={<ProtectedAdminRoute />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="products" element={<AdminProducts />} />
+            <Route path="add-product" element={<AddProduct />} />
+            <Route path="edit-product/:id" element={<EditProduct />} />
+          </Route>
         </Route>
+
       </Routes>
     </>
   );

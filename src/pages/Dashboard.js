@@ -5,11 +5,10 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <h1 style={{ marginBottom: "20px" }}>Dashboard</h1>
+    <>
+      <h1>Dashboard</h1>
 
       <div className="stats-grid">
-        
         <div className="stat-box" onClick={() => navigate("/admin/products")}>
           <h2>Products</h2>
           <p>Manage all products</p>
@@ -22,10 +21,9 @@ export default function Dashboard() {
 
         <div className="stat-box" onClick={() => window.open("/", "_blank")}>
           <h2>Website</h2>
-          <p>Hindustan Enterprises</p>
+          <p>Open live site</p>
         </div>
-
       </div>
-    </div>
+    </>
   );
 }

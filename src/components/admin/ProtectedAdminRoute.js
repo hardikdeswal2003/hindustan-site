@@ -1,15 +1,17 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-function ProtectedAdminRoute({ children }) {
+export default function ProtectedAdminRoute({ children }) {
   const token = localStorage.getItem("adminToken");
 
-  // If not logged in → send to admin login
   if (!token) {
     return <Navigate to="/admin/login" replace />;
   }
 
-  // If logged in → allow access
-  return children;
-}
+  // If wrapped as layout
+  if (children) {
+    return children;
+  }
 
-export default ProtectedAdminRoute;
+  // If used as <Route element={<ProtectedAdminRoute />}>
+  return <Outlet />;
+}
