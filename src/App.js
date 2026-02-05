@@ -17,6 +17,9 @@ import Brands from "./pages/Brands";
 import Solar from "./pages/Solar";
 import BrandProducts from "./pages/BrandProducts";
 
+// DEBUG: Verify latest build is deployed
+console.log("✅ HINDUSTAN APP BUILD - VERSION 2 - ADMIN PANEL UPDATED");
+
 function AppWrapper() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");

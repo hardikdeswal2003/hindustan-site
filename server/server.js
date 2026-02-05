@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
@@ -106,6 +107,15 @@ app.post("/admin/login", async (req, res) => {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
+});
+
+// ================= SERVE REACT BUILD =================
+// Must be after all API routes
+app.use(express.static(path.join(__dirname, "../build")));
+
+// SPA catch-all route - serves index.html for all non-API routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
 
 // ================= Start Server =================

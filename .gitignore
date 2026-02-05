@@ -9,8 +9,8 @@ backend/node_modules
 .pnp.js
 
 # production
-build
-backend/build
+# build  <-- KEEP BUILD FOLDER FOR DEPLOYMENT
+# backend/build  <-- KEEP BACKEND BUILD IF EXISTS
 
 # testing
 coverage
