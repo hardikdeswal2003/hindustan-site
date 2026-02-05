@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function AdminProducts() {
-  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -126,10 +125,6 @@ const cellStyle = {
 
 const rowStyle = {
   borderBottom: "1px solid #ddd"
-};
-
-const rowStyle_hover = {
-  background: "#f5f5f5"
 };
 
 const linkStyle = {
